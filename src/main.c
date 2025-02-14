@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "input_buffer/input_buffer.h"
+#include "meta_command/meta_command.h"
 
 void print_promt(void);
 void read_input(InputBuffer*);
@@ -14,14 +15,15 @@ int main(int argc, char *argv[])
     {
         print_promt();
         read_input(input_buffer);
-
-        if(strncmp(input_buffer->buffer, ".exit", input_buffer->buffer_length) == 0)
+        if(input_buffer->buffer[0] == '.')
         {
-            close_input_buffer(input_buffer);
-            exit(EXIT_SUCCESS);
-        } else
-        {
-            printf("Unrecognized command: %s\n", input_buffer->buffer);
+            switch(do_meta_command(input_buffer))
+            {
+                case (META_COMMAND_SUCCESS):
+                    continue;
+                case (META_COMMAND_UNRECOGNIZED_COMMAND):
+                    printf("Unrecognized command: %s\n", input_buffer->buffer);
+            }
         }
     }
 }
