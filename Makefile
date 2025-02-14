@@ -1,7 +1,10 @@
+BUILDDIR := build
+
+SRCS := $(shell find src -name '*.c')
+
 main: src/main.c
-	mkdir -p build && cd build
-	gcc -o database src/input_buffer/input_buffer.c src/meta_command/meta_command.c src/main.c
-	mv database build/database
+	mkdir -p $(BUILDDIR)
+	gcc -o $(BUILDDIR)/database $(SRCS)
 
 clean:
-	rm -r build
+	rm -r $(BUILDDIR)
