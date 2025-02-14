@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include "input_buffer/input_buffer.h"
 #include "meta_command/meta_command.h"
+#include "statement/statement.h"
 
 void print_promt(void);
 void read_input(InputBuffer*);
@@ -25,6 +26,18 @@ int main(int argc, char *argv[])
                     printf("Unrecognized command: %s\n", input_buffer->buffer);
             }
         }
+        Statement statement;
+        switch (prepare_statement(input_buffer, &statement))
+        {
+            case (PREPARE_SUCCESS):
+                break;
+            case (PREPARE_UNRECOGNIZED_STATEMENT):
+                printf("Unrecognized keyword at start of '%s'.\n", input_buffer->buffer);
+                continue;
+        }
+
+    execute_statement(&statement);
+    printf("Executed.\n");
     }
 }
 
