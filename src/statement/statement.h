@@ -5,17 +5,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include "../input_buffer/input_buffer.h"
-
-#define USERNAME_MAX_SIZE 32
-#define EMAIL_MAX_SIZE 255
-
-#define size_of_attribute(Struct, Attriute) sizeof(((Struct*)0)->Attriute)
-
-typedef struct {
-    uint32_t id;
-    char username[USERNAME_MAX_SIZE];
-    char email[EMAIL_MAX_SIZE];
-} Row;
+#include "../table/table.h"
 
 typedef enum {
     STATEMENT_INSERT,
