@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 #define TABLE_MAX_PAGES 100
 #define USERNAME_MAX_SIZE 32
@@ -34,5 +35,9 @@ typedef struct {
 } Table;
 
 void* row_slot(Table* table, uint32_t row_num);
+void print_row(Row*);
+
+Table* new_table(void);
+void free_table(Table*);
 
 #endif

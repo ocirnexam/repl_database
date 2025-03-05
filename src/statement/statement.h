@@ -18,13 +18,20 @@ typedef enum {
     PREPARE_UNRECOGNIZED_STATEMENT
 } PrepareResult;
 
+typedef enum {
+    EXECUTE_SUCCESS,
+    EXECUTE_TABLE_FULL
+} ExecuteResult;
+
 typedef struct {
     StatementType type;
     Row row_to_insert;
 } Statement;
 
 PrepareResult prepare_statement(InputBuffer*, Statement*);
-void execute_statement(Statement*);
+ExecuteResult execute_statement(Statement*, Table*);
+ExecuteResult execute_insert(Statement*, Table*);
+ExecuteResult execute_select(Statement*, Table*);
 
 void serialize_row(Row* source, void* destination);
 void deserialize_row(void* source, Row* destination);
