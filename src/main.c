@@ -47,15 +47,15 @@ int main(int argc, char *argv[])
                 continue;
         }
 
-    switch(execute_statement(&statement, table))
-    {
-        case (EXECUTE_SUCCESS):
-            printf("Executed!\n");
-            break;
-        case (EXECUTE_TABLE_FULL):
-            printf("Error. Table full!\n");
-            break;
-    }
+        switch(execute_statement(&statement, table))
+        {
+            case (EXECUTE_SUCCESS):
+                printf("Executed!\n");
+                break;
+            case (EXECUTE_TABLE_FULL):
+                printf("Error. Table full!\n");
+                break;
+        }
     }
 }
 
