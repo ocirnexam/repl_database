@@ -3,6 +3,7 @@
 
 #include <string.h>
 #include "../input_buffer/input_buffer.h"
+#include "../table/table.h"
 
 typedef enum {
     META_COMMAND_SUCCESS,
@@ -10,6 +11,6 @@ typedef enum {
 } MetaCommandResult;
 
 
-MetaCommandResult do_meta_command(InputBuffer*);
+MetaCommandResult do_meta_command(InputBuffer*, Table*);
 
 #endif
