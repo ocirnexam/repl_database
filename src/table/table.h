@@ -13,8 +13,8 @@
 
 typedef struct {
     uint32_t id;
-    char username[USERNAME_MAX_SIZE];
-    char email[EMAIL_MAX_SIZE];
+    char username[USERNAME_MAX_SIZE + 1];
+    char email[EMAIL_MAX_SIZE + 1];
 } Row;
 
 #define ID_SIZE ((uint32_t)size_of_attribute(Row, id))

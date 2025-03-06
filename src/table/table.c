@@ -8,6 +8,9 @@ void* row_slot(Table* table, uint32_t row_num)
     {
         page = table->pages[page_num] = malloc(PAGE_SIZE);
     }
+    uint32_t row_offset = row_num % ROWS_PER_PAGE;
+    uint32_t byte_offset = row_offset * ROW_SIZE;
+    return page + byte_offset;
 }
 
 Table* new_table(void)
@@ -32,5 +35,5 @@ void free_table(Table* table)
 
 void print_row(Row* row)
 {
-    printf("(%d, %s %s)\n", row->id, row->username, row->email);
+    printf("(%d, %s, %s)\n", row->id, row->username, row->email);
 }

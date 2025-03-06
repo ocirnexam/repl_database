@@ -34,8 +34,14 @@ int main(int argc, char *argv[])
             case (PREPARE_SUCCESS):
                 break;
             case (PREPARE_SYNTAX_ERROR):
-                    printf("Syntax error. Could not parse statement.\n");
-                    continue;
+                printf("Syntax error. Could not parse statement.\n");
+                continue;
+            case (PREPARE_STRING_TOO_LONG):
+                printf("Input string is too long. Username max. size: %d, Email max. size: %d\n", USERNAME_MAX_SIZE, EMAIL_MAX_SIZE);
+                continue;
+            case (PREPARE_NEGATIVE_ID):
+                printf("Negative ID given!\n");
+                continue;
             case (PREPARE_UNRECOGNIZED_STATEMENT):
                 printf("Unrecognized keyword at start of '%s'.\n", input_buffer->buffer);
                 continue;

@@ -15,6 +15,8 @@ typedef enum {
 typedef enum {
     PREPARE_SUCCESS,
     PREPARE_SYNTAX_ERROR,
+    PREPARE_STRING_TOO_LONG,
+    PREPARE_NEGATIVE_ID,
     PREPARE_UNRECOGNIZED_STATEMENT
 } PrepareResult;
 
@@ -29,6 +31,7 @@ typedef struct {
 } Statement;
 
 PrepareResult prepare_statement(InputBuffer*, Statement*);
+PrepareResult prepare_insert(InputBuffer*, Statement*);
 ExecuteResult execute_statement(Statement*, Table*);
 ExecuteResult execute_insert(Statement*, Table*);
 ExecuteResult execute_select(Statement*, Table*);
