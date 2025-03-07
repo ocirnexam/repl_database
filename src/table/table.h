@@ -14,8 +14,6 @@ typedef struct {
     Pager* pager;
 } Table;
 
-void* row_slot(Table* table, uint32_t row_num);
-
 Table* db_open(const char*);
 void db_close(Table*);
 
