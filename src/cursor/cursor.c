@@ -39,8 +39,8 @@ void cursor_advance(Cursor* cursor)
 {
     uint32_t page_num = cursor->page_num;
     void* node = pager_get_page(cursor->table->pager, page_num);
-    cursor->page_num += 1;
-    if (cursor->page_num >= (*node_leaf_num_cells(node)))
+    cursor->cell_num += 1;
+    if (cursor->cell_num >= (*node_leaf_num_cells(node)))
     {
         cursor->end_of_table = true;
     }
