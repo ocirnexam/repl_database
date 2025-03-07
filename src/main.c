@@ -12,14 +12,13 @@ void close_input_buffer(InputBuffer*);
 
 int main(int argc, char *argv[])
 {
-    // if (argc < 2)
-    // {
-    //     printf("Please enter a database filename!\n./database <filename>\n");
-    //     exit(EXIT_FAILURE);
-    // }
+    if (argc < 2)
+    {
+        printf("Please enter a database filename!\n./database <filename>\n");
+        exit(EXIT_FAILURE);
+    }
     char* filename = argv[1];
-    Table* table = db_open("mydb.db");
-    printf("Pager initialized: %d\n", table->pager != NULL);
+    Table* table = db_open(filename);
     InputBuffer* input_buffer = new_input_buffer();
     while(true)
     {
