@@ -47,13 +47,24 @@ PrepareResult prepare_statement(InputBuffer* input_buffer, Statement* statement)
 ExecuteResult execute_insert(Statement* statement, Table* table)
 {
   void* node = pager_get_page(table->pager, table->root_page_num);
-  if ((*node_leaf_num_cells(node)) >= NODE_LEAF_MAX_CELLS)
+  uint32_t num_cells = (*node_leaf_num_cells(node));
+  if (num_cells >= NODE_LEAF_MAX_CELLS)
   {
     return EXECUTE_TABLE_FULL;
   }
   Row* row_to_insert = &(statement->row_to_insert);
-  Cursor* cursor = cursor_table_end(table);
-  cursor_node_leaf_insert(cursor, row_to_insert->id, row_to_insert);
+  uint32_t key_to_insert = row_to_insert->id;
+  Cursor* cursor = cursor_table_find(table, key_to_insert);
+  if(cursor->cell_num < num_cells)
+  {
+    uint32_t key_at_index = *node_leaf_key(node, cursor->cell_num);
+    if(key_at_index == key_to_insert)
+    {
+      return EXECUTE_DUPLICATE_KEY;
+    }
+  }
+
+  cursor_node_insert(cursor, row_to_insert->id, row_to_insert);
   free(cursor);
 
   row_to_insert->id = 0;

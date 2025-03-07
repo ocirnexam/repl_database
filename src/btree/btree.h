@@ -52,4 +52,7 @@ uint32_t* node_leaf_value(void* node, uint32_t cell_num);
 void node_initialize_leaf(void* node);
 void node_print_leaf(void* node);
 
+NodeType node_get_type(void*);
+void node_set_type(void*, NodeType);
+
 #endif

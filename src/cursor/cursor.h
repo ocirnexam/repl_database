@@ -17,9 +17,10 @@ typedef struct {
 } Cursor;
 
 Cursor* cursor_table_start(Table*);
-Cursor* cursor_table_end(Table*);
+Cursor* cursor_table_find(Table*, uint32_t);
+Cursor* cursor_leaf_node_find(Table*, uint32_t, uint32_t);
 
-void cursor_node_leaf_insert(Cursor* cursor, uint32_t key, Row* value);
+void cursor_node_insert(Cursor* cursor, uint32_t key, Row* value);
 
 void* cursor_value(Cursor*);
 void cursor_advance(Cursor*);

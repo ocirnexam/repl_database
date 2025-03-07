@@ -22,6 +22,7 @@ uint32_t* node_leaf_value(void* node, uint32_t cell_num)
 
 void node_initialize_leaf(void* node)
 {
+    node_set_type(node, NODE_LEAF);
     *node_leaf_num_cells(node) = 0;
 }
 
@@ -43,4 +44,14 @@ void node_print_leaf(void* node)
         uint32_t key = *node_leaf_key(node, i);
         printf(" - %d : %d\n", i, key);
     }
+}
+
+NodeType node_get_type(void* node) {
+    uint8_t value = *((uint8_t*)(node + NODE_TYPE_OFFSET));
+    return (NodeType)value;
+}
+
+void node_set_type(void* node, NodeType type) {
+    uint8_t value = type;
+    *((uint8_t*)(node + NODE_TYPE_OFFSET)) = value;
 }
