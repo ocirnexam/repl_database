@@ -4,6 +4,7 @@
 #include <string.h>
 #include "../input_buffer/input_buffer.h"
 #include "../table/table.h"
+#include "../cursor/cursor.h"
 
 typedef enum {
     META_COMMAND_SUCCESS,

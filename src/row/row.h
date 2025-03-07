@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include <stdio.h>
+#include <string.h>
 
 #define USERNAME_MAX_SIZE 32
 #define EMAIL_MAX_SIZE 255
@@ -24,5 +25,8 @@ typedef struct {
 #define ROW_SIZE ((uint32_t)ID_SIZE + USERNAME_SIZE + EMAIL_SIZE)
 
 void print_row(Row*);
+
+void serialize_row(Row* source, void* destination);
+void deserialize_row(void* source, Row* destination);
 
 #endif

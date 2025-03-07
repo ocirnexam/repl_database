@@ -4,7 +4,7 @@ SRCS := $(shell find src -name '*.c')
 
 main: src/main.c
 	mkdir -p $(BUILDDIR)
-	gcc -o $(BUILDDIR)/database $(SRCS)
+	gcc -g -o $(BUILDDIR)/database $(SRCS)
 
 clean:
 	rm -r $(BUILDDIR)

@@ -3,18 +3,12 @@
 
 #include <stdint.h>
 #include <stdlib.h>
-#include "../row/row.h"
 #include "../pager/pager.h"
 
-#define ROWS_PER_PAGE ((uint32_t)PAGE_SIZE / ROW_SIZE)
-#define TABLE_MAX_ROWS ((uint32_t)ROWS_PER_PAGE * TABLE_MAX_PAGES)
-
 typedef struct {
-    uint32_t num_rows;
+    uint32_t root_page_num;
     Pager* pager;
 } Table;
 
-Table* db_open(const char*);
-void db_close(Table*);
 
 #endif

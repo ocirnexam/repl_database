@@ -5,8 +5,9 @@
 #include <stdio.h>
 #include <stdint.h>
 #include "../input_buffer/input_buffer.h"
-#include "../table/table.h"
+#include "../btree/btree.h"
 #include "../cursor/cursor.h"
+#include "../table/table.h"
 
 typedef enum {
     STATEMENT_INSERT,
@@ -36,8 +37,5 @@ PrepareResult prepare_insert(InputBuffer*, Statement*);
 ExecuteResult execute_statement(Statement*, Table*);
 ExecuteResult execute_insert(Statement*, Table*);
 ExecuteResult execute_select(Statement*, Table*);
-
-void serialize_row(Row* source, void* destination);
-void deserialize_row(void* source, Row* destination);
 
 #endif

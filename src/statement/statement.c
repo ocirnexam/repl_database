@@ -46,14 +46,14 @@ PrepareResult prepare_statement(InputBuffer* input_buffer, Statement* statement)
 
 ExecuteResult execute_insert(Statement* statement, Table* table)
 {
-  if (table->num_rows >= TABLE_MAX_ROWS)
+  void* node = pager_get_page(table->pager, table->root_page_num);
+  if ((*node_leaf_num_cells(node)) >= NODE_LEAF_MAX_CELLS)
   {
     return EXECUTE_TABLE_FULL;
   }
   Row* row_to_insert = &(statement->row_to_insert);
   Cursor* cursor = cursor_table_end(table);
-  serialize_row(row_to_insert, cursor_value(cursor));
-  table->num_rows += 1;
+  cursor_node_leaf_insert(cursor, row_to_insert->id, row_to_insert);
   free(cursor);
 
   row_to_insert->id = 0;
@@ -84,19 +84,4 @@ ExecuteResult execute_statement(Statement* statement, Table* table) {
     case (STATEMENT_SELECT):
       return execute_select(statement, table);
   }
-}
-  
-
-void serialize_row(Row* source, void* destination)
-{
-  memcpy(destination + ID_OFFSET, &(source->id), ID_SIZE);
-  memcpy(destination + USERNAME_OFFSET, &(source->username), USERNAME_SIZE);
-  memcpy(destination + EMAIL_OFFSET, &(source->email), EMAIL_SIZE);
-}
-
-void deserialize_row(void* source, Row* destination)
-{
-  memcpy(&(destination->id), source + ID_OFFSET, ID_SIZE);
-  memcpy(&(destination->username), source + USERNAME_OFFSET, USERNAME_SIZE);
-  memcpy(&(destination->email), source + EMAIL_OFFSET, EMAIL_SIZE);
 }
